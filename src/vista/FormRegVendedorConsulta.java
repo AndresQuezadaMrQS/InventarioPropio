@@ -27,6 +27,7 @@ public class FormRegVendedorConsulta extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -53,13 +54,16 @@ public class FormRegVendedorConsulta extends javax.swing.JInternalFrame {
 
         btnCancelarConsulta.setText("CANCELAR");
 
+        buttonGroup1.add(jrbUsuario);
         jrbUsuario.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jrbUsuario.setSelected(true);
         jrbUsuario.setText("Por Usuario");
 
+        buttonGroup1.add(jrbNombre);
         jrbNombre.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jrbNombre.setText("Por Nombre");
 
+        buttonGroup1.add(jrbFec_ing);
         jrbFec_ing.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jrbFec_ing.setText("Fecha de Ingreso");
 
@@ -178,6 +182,7 @@ public class FormRegVendedorConsulta extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTable TablaVendedores;
     public javax.swing.JButton btnCancelarConsulta;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

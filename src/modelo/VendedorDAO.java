@@ -51,7 +51,7 @@ public class VendedorDAO {
 
     // ControladorVendedor
     public ModeloVendedor guardarVendedor(String nombre, String apellido, String email) {
-
+ 
         try {
             miConexion = this.conexionActual.conectarConexion();
             sql = "SELECT * FROM vendedores WHERE nom_ven = ? AND ape_ven = ? AND ema_ven = ?;";

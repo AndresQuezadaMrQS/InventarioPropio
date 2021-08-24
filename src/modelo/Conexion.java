@@ -16,12 +16,12 @@ import java.sql.SQLException;
 public class Conexion {
 
     private Connection miConexion;
-    /*private static final String url = "jdbc:mysql://localhost/facturacion";
+    private static final String url = "jdbc:mysql://localhost/facturacion";
     private static final String user = "root";
-    private static final String pass = "";*/
-    private static final String url = "jdbc:mysql://remotemysql.com:3306/GcC6txWUWH";
+    private static final String pass = "";
+    /*private static final String url = "jdbc:mysql://remotemysql.com:3306/GcC6txWUWH";
     private static final String user = "GcC6txWUWH";
-    private static final String pass = "mkxqLCVQrs";
+    private static final String pass = "mkxqLCVQrs";*/
 
     public Connection conectarConexion() {
         try {

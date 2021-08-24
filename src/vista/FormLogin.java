@@ -16,6 +16,8 @@ public class FormLogin extends javax.swing.JFrame {
      */
     public FormLogin() {
         initComponents();
+        this.txtUser.setText("admin");
+        this.txtPass.setText("12345");
     }
 
     /**

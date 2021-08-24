@@ -29,13 +29,14 @@ import vista.FormRegVendedorConsulta;
 public class ControladorVendedor extends ControladorAbstraccion {
 
     private FormLogin loginf = new FormLogin();
-    private ModeloVendedor modeloV = new ModeloVendedor();
-    private VendedorDAO daoV = new VendedorDAO();
+    protected ModeloVendedor modeloV = new ModeloVendedor();
+    private final VendedorDAO daoV = new VendedorDAO();
     protected FormRegVendedor vendedorF = new FormRegVendedor();
     private FormRegVendedorConsulta vendedorFC = new FormRegVendedorConsulta();
     private String respuesta, cadena = "";
     private int dato;
     private final int CONT = 1;
+    
 
     public ControladorVendedor(FormLogin loginf) {
         this.loginf = loginf;
@@ -223,7 +224,6 @@ public class ControladorVendedor extends ControladorAbstraccion {
         vendedorF.txtVentos.setText("");
         vendedorF.cbLabora.setSelected(false);
     }
-    int i = 0;
 
     // Registra al vendedor en FormRegVendedor
     private void guardarVendedor() {
@@ -237,7 +237,12 @@ public class ControladorVendedor extends ControladorAbstraccion {
             modeloV.setId_ven(vendedorF.txtCodigo.getText());
             modeloV.setNom_ven(vendedorF.txtNombre.getText());
             modeloV.setApe_ven(vendedorF.txtApellido.getText());
-            modeloV.setUsua_ven(vendedorF.txtUsuario.getText());
+            if (!vendedorF.txtUsuario.getText().contains(" ")) {
+                modeloV.setUsua_ven(vendedorF.txtUsuario.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "No debe contener espacio el Usuario.");
+            }
+            
             modeloV.setDir_ven(vendedorF.txtDireccion.getText());
             modeloV.setCui_ven(vendedorF.txtCui.getText());
             modeloV.setTel_ven(vendedorF.txtTelefono.getText());
@@ -286,11 +291,11 @@ public class ControladorVendedor extends ControladorAbstraccion {
 
             respuesta = daoV.insertarVendedor(modeloV);
             if (respuesta != null) {
-                JOptionPane.showMessageDialog(null, respuesta, "Respuesta Vendedor", 1);
+                JOptionPane.showMessageDialog(null, respuesta, "Respuesta Registro", 1);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Hay campos criticos vacíos o ingresados incorrectamente.", "Error de Campos", 0);
-            this.limpiarVendedorF();
+            limpiarVendedorF();
         }
     }
 

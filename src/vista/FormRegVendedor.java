@@ -34,14 +34,14 @@ public class FormRegVendedor extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         btnDespues = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
-        txtDireccion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtCui = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtCui = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -122,11 +122,11 @@ public class FormRegVendedor extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        txtNombre.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        txtNombre.setEnabled(false);
-
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel2.setText("*Nombre:");
+
+        txtNombre.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtNombre.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel3.setText("*Apellido:");
@@ -134,17 +134,17 @@ public class FormRegVendedor extends javax.swing.JInternalFrame {
         txtApellido.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtApellido.setEnabled(false);
 
-        txtDireccion.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        txtDireccion.setEnabled(false);
-
         jLabel4.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel4.setText("Dirección:");
 
-        txtCui.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
-        txtCui.setEnabled(false);
+        txtDireccion.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtDireccion.setEnabled(false);
 
         jLabel5.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         jLabel5.setText("*CUI:");
+
+        txtCui.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
+        txtCui.setEnabled(false);
 
         txtTelefono.setFont(new java.awt.Font("Verdana", 0, 12)); // NOI18N
         txtTelefono.setEnabled(false);
@@ -434,9 +434,9 @@ public class FormRegVendedor extends javax.swing.JInternalFrame {
     public javax.swing.JButton btnNuevo;
     public javax.swing.JButton btnSalir;
     public javax.swing.JCheckBox cbLabora;
-    public javax.swing.JComboBox<String> cbSexo;
-    public com.toedter.calendar.JDateChooser dateIngreso;
-    public com.toedter.calendar.JDateChooser dateNacimiento;
+    public static javax.swing.JComboBox<String> cbSexo;
+    public static com.toedter.calendar.JDateChooser dateIngreso;
+    public static com.toedter.calendar.JDateChooser dateNacimiento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -453,15 +453,15 @@ public class FormRegVendedor extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    public javax.swing.JTextField txtApellido;
+    public static javax.swing.JTextField txtApellido;
     public javax.swing.JTextField txtCodigo;
-    public javax.swing.JTextField txtCui;
-    public javax.swing.JTextField txtDireccion;
-    public javax.swing.JTextField txtEmail;
-    public javax.swing.JTextField txtNombre;
-    public javax.swing.JTextField txtSueldo;
-    public javax.swing.JTextField txtTelefono;
-    public javax.swing.JTextField txtUsuario;
-    public javax.swing.JTextField txtVentos;
+    public static javax.swing.JTextField txtCui;
+    public static javax.swing.JTextField txtDireccion;
+    public static javax.swing.JTextField txtEmail;
+    public static javax.swing.JTextField txtNombre;
+    public static javax.swing.JTextField txtSueldo;
+    public static javax.swing.JTextField txtTelefono;
+    public static javax.swing.JTextField txtUsuario;
+    public static javax.swing.JTextField txtVentos;
     // End of variables declaration//GEN-END:variables
 }
