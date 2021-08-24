@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import modelo.ModeloVendedor;
 import modelo.VendedorDAO;
+import vista.FormRegVendedor;
 import vista.FormRegVendedorConsulta;
 
 /**
@@ -21,9 +22,9 @@ import vista.FormRegVendedorConsulta;
  */
 public class ControladorVendedorConsulta extends ControladorVendedor {
 
-    FormRegVendedorConsulta formVC = new FormRegVendedorConsulta();
-    ModeloVendedor modelo = new ModeloVendedor();
-    VendedorDAO dao = new VendedorDAO();
+    private FormRegVendedorConsulta formVC = new FormRegVendedorConsulta();
+    private final VendedorDAO dao = new VendedorDAO();
+    private ModeloVendedor modelo = new ModeloVendedor();
 
     public ControladorVendedorConsulta(FormRegVendedorConsulta frvc) {
         super(frvc);
@@ -67,10 +68,10 @@ public class ControladorVendedorConsulta extends ControladorVendedor {
             miModel.addColumn("Email");
             Object[] obj = new Object[3];
             int numRegistros = dao.consultarVendedor(valor, buscar).size();
-            for (int i = 0; i < numRegistros; i++) {
-                obj[0] = dao.consultarVendedor(valor, buscar).get(i).getNom_ven();
-                obj[1] = dao.consultarVendedor(valor, buscar).get(i).getApe_ven();
-                obj[2] = dao.consultarVendedor(valor, buscar).get(i).getEma_ven();
+            for (int j = 0; j < numRegistros; j++) {
+                obj[0] = dao.consultarVendedor(valor, buscar).get(j).getNom_ven();
+                obj[1] = dao.consultarVendedor(valor, buscar).get(j).getApe_ven();
+                obj[2] = dao.consultarVendedor(valor, buscar).get(j).getEma_ven();
                 miModel.addRow(obj);
             }
         } else {
@@ -87,18 +88,19 @@ public class ControladorVendedorConsulta extends ControladorVendedor {
             String apellido = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
             String email = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
             modelo = dao.guardarVendedor(nombre, apellido, email);
-            vendedorF.txtNombre.setText("adadasdasdas");
-            System.out.println(modelo.getNom_ven());
-            //this.vendedorFC.dispose();
+            if (modelo != null) {
+                formVC.dispose();
+                FormRegVendedor.txtNombre.setText("asdads");
+            } 
         } else {
             limpiarConsulta();
         }
- /*
+        /*
         RECORDATORIO || TENGO QUE HACER QUE AL SELECCIONAR UN VENDEDOR,
         SE TIENE QUE COLOCAR SUS DATOS EN EL FORMREGVENDEDOR() *Terminar YA
          */
- 
- // Complicacion no me deja settear el texto en el otro FORM REPARAR*
+
+        // Complicacion no me deja settear el texto en el otro FORM - REPARAR*
     }
 
     // Cerrar el programa si hay algún problema critico
