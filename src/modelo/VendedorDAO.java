@@ -26,7 +26,7 @@ public class VendedorDAO {
 
     // ControladorVendedor
     public ModeloVendedor loginVendedor(String user, String cui) {
-        try {          
+        try {
             miConexion = conexionActual.conectarConexion();
             sql = "SELECT cui_ven, usua_ven FROM vendedores WHERE usua_ven = ? and cui_ven = ?";
 
@@ -35,7 +35,7 @@ public class VendedorDAO {
             PS.setString(2, cui);
             RS = PS.executeQuery();
 
-            if (RS.next()) {
+            while (RS.next()) {
                 modelo = new ModeloVendedor();
                 modelo.setUsua_ven(RS.getString("usua_ven"));
                 modelo.setCui_ven(RS.getString("cui_ven"));
@@ -48,10 +48,10 @@ public class VendedorDAO {
         }
         return modelo;
     }
-    
+
     // ControladorVendedor
     public ModeloVendedor guardarVendedor(String nombre, String apellido, String email) {
-        modelo = new ModeloVendedor();
+
         try {
             miConexion = this.conexionActual.conectarConexion();
             sql = "SELECT * FROM vendedores WHERE nom_ven = ? AND ape_ven = ? AND ema_ven = ?;";
@@ -61,8 +61,9 @@ public class VendedorDAO {
             PS.setString(2, apellido);
             PS.setString(3, email);
             RS = PS.executeQuery();
-            
-            while(RS.next()){
+
+            while (RS.next()) {
+                modelo = new ModeloVendedor();
                 modelo.setId_ven(RS.getString("id_ven"));
                 modelo.setNom_ven(RS.getString("nom_ven"));
                 modelo.setApe_ven(RS.getString("ape_ven"));
@@ -77,7 +78,7 @@ public class VendedorDAO {
                 modelo.setVentas(RS.getDouble("ventas"));
                 modelo.setLabora(RS.getInt("labora"));
                 modelo.setSueldo(RS.getDouble("sueldo"));
-            }      
+            }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             modelo = null;
@@ -118,7 +119,7 @@ public class VendedorDAO {
         }
         return respuesta;
     }
-    
+
     // ControladorVendedor
     public String buscarCodigo() {
         String codigo = "";
@@ -140,25 +141,25 @@ public class VendedorDAO {
         }
         return codigo;
     }
-    
+
     // ControladorVendedorConsulta
-    public ArrayList<ModeloVendedor> consultarVendedor(String valor, String campo){
+    public ArrayList<ModeloVendedor> consultarVendedor(String valor, String campo) {
         ArrayList<ModeloVendedor> lista = null;
         try {
             miConexion = this.conexionActual.conectarConexion();
-            sql = "SELECT ape_ven, nom_ven, ema_ven FROM vendedores WHERE " + valor +" LIKE '%" + campo + "%'";
-            
+            sql = "SELECT ape_ven, nom_ven, ema_ven FROM vendedores WHERE " + valor + " LIKE '%" + campo + "%'";
+
             PS = miConexion.prepareStatement(sql);
             RS = PS.executeQuery();
             lista = new ArrayList();
-            while (RS.next()) {    
+            while (RS.next()) {
                 ModeloVendedor modeloV = new ModeloVendedor();
                 modeloV.setApe_ven(RS.getString("ape_ven"));
                 modeloV.setNom_ven(RS.getString("nom_ven"));
                 modeloV.setEma_ven(RS.getString("ema_ven"));
                 lista.add(modeloV);
             }
-            
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

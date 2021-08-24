@@ -28,11 +28,11 @@ import vista.FormRegVendedorConsulta;
  */
 public class ControladorVendedor extends ControladorAbstraccion {
 
-    FormLogin loginf = new FormLogin();
-    ModeloVendedor modeloV = new ModeloVendedor();
-    VendedorDAO daoV = new VendedorDAO();
-    FormRegVendedor vendedorF = new FormRegVendedor();
-    FormRegVendedorConsulta vendedorFC = new FormRegVendedorConsulta();
+    private FormLogin loginf = new FormLogin();
+    private ModeloVendedor modeloV = new ModeloVendedor();
+    private VendedorDAO daoV = new VendedorDAO();
+    protected FormRegVendedor vendedorF = new FormRegVendedor();
+    private FormRegVendedorConsulta vendedorFC = new FormRegVendedorConsulta();
     private String respuesta, cadena = "";
     private int dato;
     private final int CONT = 1;
@@ -56,32 +56,32 @@ public class ControladorVendedor extends ControladorAbstraccion {
         this.vendedorFC = frvc;
     }
 
-    // Programacion Login
+    // Programacion Login | Validar Credenciales Login
     private void validarLogin() {
         String user = loginf.txtUser.getText();
         String pass = loginf.txtPass.getText();
 
-        if (user.equals("") || pass.equals("")) {
-            JOptionPane.showMessageDialog(null, "Los campos están vacíos", "Error", 0);
-            loginf.txtUser.requestFocus();
-        } else {
+        if (!user.isEmpty() && !pass.isEmpty() && !user.contains(" ") && !pass.contains(" ")) {
             modeloV = daoV.loginVendedor(user, pass);
-            if (modeloV.getUsua_ven() != null || modeloV.getCui_ven() != null) {
-                FormPrincipal principal = new FormPrincipal();
-                principal.setVisible(true);
-                loginf.dispose();
+            if (modeloV != null) {
+                if (modeloV.getUsua_ven().equals(user) && modeloV.getCui_ven().equals(pass)) {
+                    loginf.dispose();
+                    FormPrincipal principalF = new FormPrincipal();
+                    principalF.setVisible(true);
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Los credenciales no coinciden.", "Error", 0);
-                loginf.txtUser.setText("");
-                loginf.txtUser.requestFocus();
-                loginf.txtPass.setText("");
+                JOptionPane.showMessageDialog(null, "Credenciales invalidas, intente de nuevo.", "Credenciales Invalidas", 0);
+                limpiarLogin();
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "Hay campos vacíos o campos invalidos.", "Campos Invalidos", 0);
+            limpiarLogin();
         }
     }
 
     // Programacion del FormRegVendedor() + salida
     private void salir() {
-        this.vendedorF.dispose();
+        vendedorF.dispose();
     }
 
     //Retornar la fecha de un JDateChooser
@@ -156,6 +156,13 @@ public class ControladorVendedor extends ControladorAbstraccion {
         }
     }
 
+    // Limpiar Login
+    private void limpiarLogin() {
+        loginf.txtUser.requestFocus();
+        loginf.txtUser.setText("");
+        loginf.txtPass.setText("");
+    }
+
     // Habilita, Deshabilita y limpia algunos botones y txts en el FormRegVendedor()
     private void habilitarTodoVendedorF() {
         vendedorF.txtNombre.requestFocus();
@@ -221,10 +228,10 @@ public class ControladorVendedor extends ControladorAbstraccion {
     // Registra al vendedor en FormRegVendedor
     private void guardarVendedor() {
 
-        if (!vendedorF.txtNombre.getText().equals("")
-                && !vendedorF.txtApellido.getText().equals("")
-                && !vendedorF.txtUsuario.getText().equals("")
-                && !vendedorF.txtCui.getText().equals("")
+        if (!vendedorF.txtNombre.getText().isEmpty()
+                && !vendedorF.txtApellido.getText().isEmpty()
+                && !vendedorF.txtUsuario.getText().isEmpty()
+                && !vendedorF.txtCui.getText().isEmpty()
                 && vendedorF.dateIngreso.getDate() != null) {
 
             modeloV.setId_ven(vendedorF.txtCodigo.getText());
@@ -271,7 +278,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
                 modeloV.setLabora(0);
             }
 
-            if (!vendedorF.txtSueldo.getText().equals("")) {
+            if (!vendedorF.txtSueldo.getText().isEmpty()) {
                 modeloV.setSueldo(Double.parseDouble(vendedorF.txtSueldo.getText()));
             } else {
                 modeloV.setSueldo(0);
