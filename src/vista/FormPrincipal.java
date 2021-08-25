@@ -124,8 +124,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuVendedorActionPerformed
 
      public void centrarVentanas(JInternalFrame frame) {
-        FormPrincipal.desktopPane.add(frame);
-        Dimension dimPrincipal = FormPrincipal.desktopPane.getSize();
+        desktopPane.add(frame);
+        Dimension dimPrincipal = desktopPane.getSize();
         Dimension dimVentanas = frame.getSize();
         int x = (dimPrincipal.width - dimVentanas.width) / 2;
         int y = (dimPrincipal.height - dimVentanas.height) / 2;

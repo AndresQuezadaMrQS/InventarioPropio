@@ -36,7 +36,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
     private String respuesta, cadena = "";
     private int dato;
     private final int CONT = 1;
-    
+    protected static String nombre = "", apellido = "", email = "";
 
     public ControladorVendedor(FormLogin loginf) {
         this.loginf = loginf;
@@ -51,6 +51,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
         this.vendedorF.btnLimpiar.addActionListener(this);
         this.vendedorF.btnSalir.addActionListener(this);
         this.vendedorF.btnBuscar.addActionListener(this);
+
     }
 
     public ControladorVendedor(FormRegVendedorConsulta frvc) {
@@ -97,10 +98,11 @@ public class ControladorVendedor extends ControladorAbstraccion {
         FormRegVendedorConsulta formReg = new FormRegVendedorConsulta();
         ControladorVendedorConsulta control = new ControladorVendedorConsulta(formReg);
         centrarVentanas(formReg);
+        vendedorF.dispose();
     }
 
     // Centrar las ventanas de un JInternalFrame()
-    private void centrarVentanas(JInternalFrame frame) {
+    protected void centrarVentanas(JInternalFrame frame) {
         FormPrincipal.desktopPane.add(frame);
         Dimension dimPrincipal = FormPrincipal.desktopPane.getSize();
         Dimension dimVentanas = frame.getSize();
@@ -184,7 +186,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
         vendedorF.dateNacimiento.setEnabled(true);
         vendedorF.txtVentos.setEnabled(true);
         vendedorF.cbLabora.setEnabled(true);
-        limpiarVendedorF();
+        //limpiarVendedorF();
     }
 
     private void deshabilitarTodoVendedorF() {
@@ -232,7 +234,8 @@ public class ControladorVendedor extends ControladorAbstraccion {
                 && !vendedorF.txtApellido.getText().isEmpty()
                 && !vendedorF.txtUsuario.getText().isEmpty()
                 && !vendedorF.txtCui.getText().isEmpty()
-                && vendedorF.dateIngreso.getDate() != null) {
+                && vendedorF.dateIngreso.getDate() != null
+                && !vendedorF.txtEmail.getText().isEmpty()) {
 
             modeloV.setId_ven(vendedorF.txtCodigo.getText());
             modeloV.setNom_ven(vendedorF.txtNombre.getText());
@@ -242,7 +245,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
             } else {
                 JOptionPane.showMessageDialog(null, "No debe contener espacio el Usuario.");
             }
-            
+
             modeloV.setDir_ven(vendedorF.txtDireccion.getText());
             modeloV.setCui_ven(vendedorF.txtCui.getText());
             modeloV.setTel_ven(vendedorF.txtTelefono.getText());
@@ -261,12 +264,10 @@ public class ControladorVendedor extends ControladorAbstraccion {
                 modeloV.setFec_nac(null);
             }
 
-            if (!vendedorF.txtEmail.getText().isEmpty()) {
-                if (vendedorF.txtEmail.getText().contains("@gmail.com") || vendedorF.txtEmail.getText().contains("@outlook.com")) {
-                    modeloV.setEma_ven(vendedorF.txtEmail.getText());
-                } else {
-                    JOptionPane.showMessageDialog(null, "El correo tiene un dominio no asociado.", "Error de Dominio", 0);
-                }
+            if (vendedorF.txtEmail.getText().contains("@gmail.com") || vendedorF.txtEmail.getText().contains("@outlook.com")) {
+                modeloV.setEma_ven(vendedorF.txtEmail.getText());
+            } else {
+                JOptionPane.showMessageDialog(null, "El correo tiene un dominio no asociado.", "Error de Dominio", 0);
             }
 
             if (!vendedorF.txtVentos.getText().equals("")) {
@@ -292,6 +293,7 @@ public class ControladorVendedor extends ControladorAbstraccion {
             respuesta = daoV.insertarVendedor(modeloV);
             if (respuesta != null) {
                 JOptionPane.showMessageDialog(null, respuesta, "Respuesta Registro", 1);
+                limpiarVendedorF();
             }
         } else {
             JOptionPane.showMessageDialog(null, "Hay campos criticos vacíos o ingresados incorrectamente.", "Error de Campos", 0);

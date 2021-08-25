@@ -8,6 +8,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -28,7 +29,7 @@ public class ControladorVendedorConsulta extends ControladorVendedor {
 
     public ControladorVendedorConsulta(FormRegVendedorConsulta frvc) {
         super(frvc);
-        this.formVC = frvc;
+        formVC = frvc;
         formVC.btnCancelarConsulta.addActionListener(this);
         formVC.txtBuscarVendedor.addKeyListener(this);
         formVC.jrbUsuario.addActionListener(this);
@@ -81,17 +82,64 @@ public class ControladorVendedorConsulta extends ControladorVendedor {
 
     // LLevar todos los datos del usuario que seleccione a la parte del FormRegVendedor()
     private void ladoAOtro(JTable tabla) {
+        //vendedor.txtNombre.setText("asdads");
         int pregunta = JOptionPane.showConfirmDialog(null, "¿Desea que este VENDEDOR se muetre en la otra pantalla?", "Consulta", JOptionPane.YES_NO_OPTION);
-
+        int fila = tabla.getSelectedRow();
         if (pregunta == 0) {
-            String nombre = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
-            String apellido = tabla.getValueAt(tabla.getSelectedRow(), 1).toString();
-            String email = tabla.getValueAt(tabla.getSelectedRow(), 2).toString();
-            modelo = dao.guardarVendedor(nombre, apellido, email);
-            if (modelo != null) {
-                formVC.dispose();
-                FormRegVendedor.txtNombre.setText("asdads");
-            } 
+            String nombre = tabla.getValueAt(fila, 0).toString();
+            String apellido = tabla.getValueAt(fila, 1).toString();
+            String email = tabla.getValueAt(fila, 2).toString();
+            if (!nombre.isEmpty() && !apellido.isEmpty() && !email.isEmpty()) {
+                ControladorVendedor.nombre = nombre;
+                ControladorVendedor.apellido = apellido;
+                ControladorVendedor.email = email;
+
+                modelo = dao.guardarVendedor(nombre, apellido, email);
+                if (modelo != null) {
+                    FormRegVendedor form = new FormRegVendedor();
+                    ControladorVendedor control = new ControladorVendedor(form);
+                    centrarVentanas(form);
+                    form.txtNombre.setText(modelo.getNom_ven());
+                    form.txtApellido.setText(modelo.getApe_ven());
+                    form.txtDireccion.setText(modelo.getDir_ven());
+                    form.txtUsuario.setText(modelo.getUsua_ven());
+                    form.txtCui.setText(modelo.getCui_ven());
+                    form.txtTelefono.setText(modelo.getTel_ven());
+                    form.dateIngreso.setDate(Date.valueOf(modelo.getFec_ing()));
+                    form.txtEmail.setText(modelo.getEma_ven());
+                    form.txtSueldo.setText(String.valueOf(modelo.getSueldo()));
+                    switch (modelo.getSex_ven().toLowerCase()) {
+                        case "masculino":
+                            form.cbSexo.setSelectedIndex(1);
+                            break;
+                        case "femenino":
+                            form.cbSexo.setSelectedIndex(2);
+                            break;
+                        default:
+                            form.cbSexo.setSelectedIndex(0);
+                            break;
+                    }
+                    if (modelo.getFec_nac() != null) {
+                        form.dateNacimiento.setDate(Date.valueOf(modelo.getFec_nac()));
+                    } else {
+                        form.dateNacimiento.setDate(null);
+                    }
+                    
+                    form.txtVentos.setText(String.valueOf(modelo.getVentas()));
+                    switch (modelo.getLabora()) {
+                        case 0:
+                            form.cbLabora.setSelected(false);
+                            break;
+                        case 1:
+                            form.cbLabora.setSelected(true);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    formVC.dispose();
+                }
+            }
         } else {
             limpiarConsulta();
         }
